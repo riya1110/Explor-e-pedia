@@ -1,0 +1,27 @@
+<?php
+
+	$id=$_GET['id'];
+	require '../../../config/dbconnect.php';
+
+	$qry="SELECT * FROM country where id=$id";
+	$rs=mysqli_query($conn,$qry);
+	$row=mysqli_fetch_assoc($rs);
+
+	if($row['isactive']==0)
+	{
+		$qry1="UPDATE country SET isactive=1 where id=$id";
+		$rs1=mysqli_query($conn,$qry1);
+		header("location:../manage-country");
+		exit();
+	}
+	elseif ($row['isactive']==1) {
+		$qry2="UPDATE country SET isactive=0 where id=$id";
+		$rs2=mysqli_query($conn,$qry2);
+		header("location:../manage-country");
+		exit();
+	}
+	else
+	{
+		echo " error";
+	}
+?>
